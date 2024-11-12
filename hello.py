@@ -1,7 +1,12 @@
 from flask import Flask
-import random
 
 app = Flask(__name__)
+
+
+def make_bold(function):
+    def wrapper():
+        return "<b>" + function() + "</b>"
+    return wrapper
 
 
 @app.route("/")
@@ -12,6 +17,7 @@ def hello_world():
 
 
 @app.route("/bye")
+@make_bold
 def say_bye():
     return "Bye"
 
@@ -22,4 +28,4 @@ def greet(name, number):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=8000, debug=True)
